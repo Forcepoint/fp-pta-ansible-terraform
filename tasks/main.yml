@@ -1,0 +1,45 @@
+---
+# tasks file for terraform
+
+- name: check terraform version
+  shell: "terraform --version 2>&1 | grep 'Terraform v{{ terraform_version }}'"
+  failed_when: false
+  changed_when: false
+  register: terraform_versions_match
+
+- name: download terraform {{ terraform_version }}
+  get_url:
+    url: "{{ terraform_download_url }}/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+    dest: /tmp/terraform.zip
+    checksum: "{{ terraform_checksum }}"
+  when: terraform_versions_match.rc != 0
+
+- name: extract terraform.zip
+  unarchive:
+    src: /tmp/terraform.zip
+    dest: /tmp
+    remote_src: yes
+  when: terraform_versions_match.rc != 0
+
+- name: copy terraform executable
+  become: yes
+  copy:
+    src: /tmp/terraform
+    dest: /usr/bin/terraform
+    owner: root
+    group: root
+    mode: 0755
+    remote_src: yes
+  when: terraform_versions_match.rc != 0
+
+- name: create the target plugin folder
+  become: yes
+  file:
+    path: "{{ terraform_plugins_dest }}"
+    state: directory
+    owner: root
+    group: wheel
+    mode: 0774
+
+- include_tasks: plugins.yml
+  loop: "{{ terraform_plugins }}"

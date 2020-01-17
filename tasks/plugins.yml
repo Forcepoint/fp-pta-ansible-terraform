@@ -1,0 +1,24 @@
+---
+
+- name: check plugin {{ item.name }} {{ item.version }}
+  stat:
+    path: "{{ terraform_plugins_dest }}/{{ item.name }}_v{{ item.version }}_x4"
+  register: terraform_plugin
+
+- name: download the plugin zip
+  get_url:
+    url: "{{ terraform_download_url }}/{{ item.name }}/{{ item.version }}/{{ item.name }}_{{ item.version }}_linux_amd64.zip"
+    dest: "/tmp/{{ item.name }}_{{ item.version }}.zip"
+  when: terraform_plugin.stat.exists == False
+
+- name: extract {{ item.name }}_{{ item.version }}.zip
+  unarchive:
+    src: "/tmp/{{ item.name }}_{{ item.version }}.zip"
+    dest: "{{ terraform_plugins_dest }}"
+    remote_src: yes
+  when: terraform_plugin.stat.exists == False
+
+- name: set permissions on plugin {{ item.name }} {{ item.version }}
+  file:
+    path: "{{ terraform_plugins_dest }}/{{ item.name }}_v{{ item.version }}_x4"
+    mode: 0775

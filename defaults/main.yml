@@ -1,0 +1,14 @@
+---
+# defaults file for terraform
+
+# https://releases.hashicorp.com/terraform/
+terraform_version: 0.12.13
+terraform_checksum: sha256:63f765a3f83987b67b046a9c31acff1ec9ee618990d0eab4db34eca6c0d861ec
+terraform_download_url: https://releases.hashicorp.com
+terraform_plugins_dest: /usr/lib/custom-terraform-plugins
+terraform_plugins:
+  - { name: terraform-provider-vsphere, version: 1.8.1 }
+  - { name: terraform-provider-vsphere, version: 1.6.0 }
+  - { name: terraform-provider-vsphere, version: 1.13.0 }
+  - { name: terraform-provider-null, version: 1.0.0 }
+  - { name: terraform-provider-null, version: 2.1.2 }
