@@ -10,5 +10,6 @@ terraform_plugins:
   - { name: terraform-provider-vsphere, version: 1.8.1 }
   - { name: terraform-provider-vsphere, version: 1.6.0 }
   - { name: terraform-provider-vsphere, version: 1.13.0 }
+  - { name: terraform-provider-vsphere, version: 1.15.0 }
   - { name: terraform-provider-null, version: 1.0.0 }
   - { name: terraform-provider-null, version: 2.1.2 }
