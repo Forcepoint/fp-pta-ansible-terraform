@@ -22,6 +22,7 @@ None
 * terraform_plugins_dest: A local folder that the specified plugins are downloaded to. Again, useful if
   you cannot reach the Terraform site directly and wish to install/use the plugins locally.
 * terraform_plugins: The desired terraform plugins and their versions. See the example for proper syntax.
+  The only real reason you'd want to specify these is if you might ever need to run a terraform init while offline.
 
 ## Dependencies
 
