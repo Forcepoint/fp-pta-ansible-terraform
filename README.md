@@ -3,6 +3,8 @@
 Download and install HashiCorp Terraform and associated plugins. 
 https://www.terraform.io/guides/running-terraform-in-automation.html#pre-installed-plugins
 
+For information about PTA and how to use it with this Ansible role please visit https://github.com/Forcepoint/fp-pta-overview/blob/master/README.md
+
 ## Requirements
 
 None
